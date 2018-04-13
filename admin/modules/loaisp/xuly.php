@@ -4,13 +4,27 @@
 	$id = $_GET['id'];
 	$tenloaisp=$_POST['txtloaisp'];
 	if(isset($_POST['them'])){
-		$sql_them=("insert into loaisp (tenloaisp) values('$tenloaisp')");
-		mysqli_query( $Dbconnect,$sql_them);
-		header('location:../../index.php?quanly=loaisp&ac=them');
+                
+                 $sql_them=("insert into loaisp (tenloaisp) values('$tenloaisp')");
+                 if(isset($tenloaisp)){ 
+                         echo'<script> alert("Lỗi trùng mã loại sản phẩm")</script>';
+                 }
+                 else
+                 {
+                 mysqli_query( $Dbconnect,$sql_them);
+                 header('location:../../index.php?quanly=loaisp&ac=them');
+                 }
 	}elseif(isset($_POST['sua'])){
 		$sql_sua="update loaisp set tenloaisp = '$tenloaisp' where ID = '$id'";
+                if(isset($tenloaisp))
+                {
+                        echo'<script> alert("Lỗi trùng mã loại sản phẩm")</script>';
+                }
+                else
+                {
 		mysqli_query( $Dbconnect,$sql_sua);
 		header('location:../../index.php?quanly=loaisp&ac=sua&id='.$id);
+                }
 	}else{
 		$sql_xoa = "delete from loaisp where ID = $id";
 		mysqli_query($Dbconnect,$sql_xoa);
